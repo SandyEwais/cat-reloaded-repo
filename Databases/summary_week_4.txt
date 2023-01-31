@@ -1,0 +1,180 @@
+What is a database?
+- Organized collection of related data that models some aspect of the real-world, they are the core component of computer applications.
+- Simply it's where you can store data almost of any type.
+real-life ex: when you successfully register an account on a website and then you log in again, the website compares your credentials with the information
+you provided during the registeration process as the website stored them in a database.
+________________________________________________________________________________________________________________________________________
+Going slightly underneath and discussing building a database using flat files (ex:CSV, spread sheets):
+-Advantages:
+1. All records are stored in one place.
+2. Easy to understand and configure.
+3. Excellent option for small databases.
+4. Requires less hardware and software components.
+
+-Disadvantages:
+1. Hard to update.
+2. Hard to change data and data-type buggy.
+3. Poor database in terms of complex queries and reusability.
+4. It increased redundancy and inconsistency. 
+5. Anyone has the spread sheet, can pretty much see all it's data even if they were private.
+___________________________________________________________________________________________________________________________________________
+As a better alternative to handle this complexity, we come with the definition "Database Management System" 
+- A database management system (DBMS) is a system software that allows applications to interact and administrate databases.
+-Advantages:
+1. Allows you to focus on the core aspect of your business as it takes all the responsibility of managing the database.
+2. Widely tested and deployed.
+3. Decreases consistency bugs.
+4. View Mechanisim.
+    View mechanisim allows us to secure the data which means not every person who uses the database has privileges to modify access data.
+    ex: a user on a website can only access his own username and password but the administrator has access to view all website users.
+
+But DBMSs are not new, they came out firstly in 1965 and they had their own complexities:
+1. Difficult to build and maintain.
+2. Tight coupling between logical and physical layers.
+3. Must know what queries your application would execute before deploying the database.
+
+After that, Edgar F. Codd observed that people were reimplementing a DBMS everytime they build an application which is like reinventing the wheel, as we say today, 
+with making many mistakes along the way so he proposed a high-level idea called a relational model (which we'll cover later).
+_____________________________________________________________________________________________________________________________________________
+Data Models:
+- A data model is a collection of concepts for describing the data in a database.
+- High-level abstraction to avoid low-level maintenance.
+
+-Advantages:
+1. Store in simple data structures.
+2. Access data through high-level when DBMS figures out best low-level strategy rather than telling it explicitly how to get the data.
+3. physical storage left up to the DBMS implementation.  
+
+Schema : describes the actual data that would be stored and how they are structured in a database.
+Query: a request to the DBMS for specific information.
+
+Types of Data Models: 
+1) Relational SQL
+2) Non-Relational:
+- NoSQL: [Key/value, Graph, Document, Column-family],
+- Machine Learning: [Array/Matrix],
+- Legacy Systems: [Hierarchical, Network, Multi-Value] (not the best choice to have ..)
+__________________________________________________________________________________________________________________________________________________
+Relational Model or RDBMS:
+- Which is the most flexible and widely used in systems, refers to having data as relations and tuples.
+
+-Advantages:
+1. Ensures the database's contents satisfy constraints such as forcing all properties to be of the desired data type.
+2. Supports concept of API which is an application programming interface for accessing and modifying database's content.
+___________________________________________________________________________________________________________________________________________________
+Structure Of Relational Models:
+-Relation represents the connection between attributes and entities. In another words, it's the whole (unordered) data table containing relationships between attibutes and entities.
+-Entities: what we store data about. ex: users, albums, clients...
+-Attribute: what we would be storing. ex: name, username, phone...
+-Tuples represent the attribute values.
+
+Keys:
+-Primary Keys:
+A relation's primary key is an integer that uniquely identifies a single tuple, some DBMSs automatically create an auto increament primary key attribute if 
+a table does not have one to keep each record unique. If you used a real-life number as your primary key such as using your national id or social security number
+it's called (natural key) which means the primary key of the table has a purpose in the real world not just an integer.
+
+-Foreign Keys:
+A relation's foreign key is an integer that specifies that an attribute of one relation has a map to a tuple in another relation 
+which creates a relationship between the two relations
+but sometimes we may want to relate more than one attribute to a tuple of another relation, here comes the role of 
+join or pivot table which is going to link both relations containing their ids
+___________________________________________________________________________________________________________________________________________________
+Data Manipulation Languages (DMLs)
+A language to store and retrieve information from a database. There are two classes of languages for this:
+• Procedural: The query specifies the (high-level) strategy the DBMS should use to find the desired
+result. =>(Relational Algebra)
+• Non-Procedural (Declarative): The query specifies only what data is wanted and not how to find it. => (Relational Calculus)
+___________________________________________________________________________________________________________________________________________________
+Relational Algebra:
+7 fundamental operations to retrieve and manipulate tuples in a relation. Each operator takes in one or more relations as inputs, and outputs a new relation. 
+We can build a query by chaining more than one operator to create more complex operations.
+
+1) Select: takes in a relation and outputs a subset of the tuples from that relation that satisfy a selection predicate.
+The predicate acts like a filter, and we can combine multiple predicates using conjunctions and disjunctions.
+
+2) Projection: takes in a relation and outputs a relation with tuples that contain only specified attributes. You
+can rearrange the ordering of the attributes in the input relation as well as manipulate the values.
+
+3) Union: takes in two relations and outputs a relation that contains all tuples that appear in at least one of the
+input relations.
+
+4) Intersection: takes in two relations and outputs a relation that contains all tuples that appear in both of the
+input relations.
+
+5) Difference: takes in two relations and outputs a relation that contains all tuples that appear in the first relation
+but not the second relation.
+
+6) Product: takes in two relations and outputs a relation that contains all possible combinations for tuples from
+the input relations.
+
+7) Join: takes in two relations and outputs a relation that contains all the tuples that are a combination of two
+tuples where for each attribute that the two relations share, the values for that attribute of both tuples is the
+same.
+
+*Note: 
+ • In Union, Intersection and Difference the two input relations must have the exact same attributes.
+ • Order of the operations in a query matters for time and perfomance .. so to reach the best approach, you should let DBMS handle the steps
+     and you just say what data you want using SQL which is the standard for writing queries on relational model databases.
+___________________________________________________________________________________________________________________________________________________
+SQL:
+- Programming language that is used to communicate with relational databases starting with defining the structure of the database to manipulating 
+the data within.
+sql can be categorized into:
+DDL: data definition language used to define the structure or relationships such as create, alter...
+DCL: data control language used to controlling access to the data and managing permissions.
+DQL: data query language used to query the database for information.
+DML: data manipulation language used to insert, search, delete, update ...etc
+____________________________________________________________________________________________________________________________________________________
+Database Design: it's layered into 3 schemas
+1) Conceptual: in this layer you think about how data are related
+2) Logical: in this layer you get more into structuring tables, columns and relationships logically.
+3) Physical: implementation of the database design and configuring steps for the actual database implementation such as
+    which RDBMS to manage database or what server to store it on.
+
+Why design a database before physically implementing one?
+designing a database is an important step that guarantees data integrity.
+
+Data Integrity: 
+it's basically having the data correct in the database which means no uncorrect data, repetition or broken relationships
+there are three types of data integrity:
+1. Entitites Integrity: entities must be unique, for example: using a primary key (also called an ID) for every single entity.
+    No repetition in entity type, for example: if we have a users table which means that every entity of that table is a type of being a (user),
+    we can't have another users table, all users must lay in one table of entity type (users).
+2. Referential Integrity: if we have a table that's got relationship with another table, there must be something that links both.
+    foreign keys are used to remain the connection and also constrain cases like deletion, otherwise the connection is broken 
+    and the data is not up-to-date.
+3. Domain Integrity: database contents satisfy constraints, for example: an attribute called phone it's tuple must be a type of number which 
+    can be handled by data types.
+    data types can put limits on what we're allowed to store.
+
+*Atomic Values
+it's a best practice to have your stored value as one thing.
+for example: users' names could be one column that hold the user's first, middle and last name, so it's better to seperate each part of them in
+a separate column as f_name, m_name and l_name. Each colmun represents one thing but sometimes this does work in some cases such as 
+a column to store users' favourite songs which means this column will hold more than one value because a person could have more than one 
+favourite hobby and it doesn't make any sense to separate them into multiple columns but also it's inproper to store so many values within a 
+column's attribute, this is handled with complex relationships.
+_________________________________________________________________________________________________________________________________________
+Relationships:
+A connection between two tables, there're three types of relationships 
+
+1. One to One: which means each entity of table 1 can only be connected to one entity of table 2 and vica versa, for example: a citizens' table and social security 
+numbers' table, the relationship describes that a person can only have one social security number and the a social security number only belongs 
+to one person.
+
+2. One to Many: which means each entity of table 1 can be connected to multiple entities of table 2 but a single entity of table 2 is only assigned to
+one entity of table 1, for example: a cities' table and user's table, the relationship describes in which city the user was born, so a user was only born
+in one city but a city could have many users born in it.
+
+3. Many to Many: which means each entity of table 1 can be connected to multiple entities of table 2 and vica verca, for example: an authers' table
+and books' table, so one auther can write multiple books and a book can be written by multiple authors working together.
+________________________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
